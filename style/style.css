@@ -3,16 +3,16 @@ body {
 }
 .number-container {
     margin: 100px;
-    width: 100px;
-    height: 200px;
+    width: 104px;
+    height: 198px;
     background-color: #555555;
+    position: relative;
 }
 .number-horizontal-section {
     width: 80px;
     height: 10px;
     background-color: #FEFEFE;
     position: relative;
-    margin: auto auto; 
 }
 .number-horizontal-section::before {
     content: "";
@@ -39,8 +39,6 @@ body {
     height: 80px;
     background-color: #FEFEFE;
     position: relative;
-    margin: auto auto;
-    margin-top: 20px;
 }
 .number-vertical-section::before {
     content: "";
@@ -61,4 +59,39 @@ body {
     border-top: 5px solid #FEFEFE;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+}
+.number-section-top {
+    position: absolute;
+    top: 0px;
+    left: 12px;
+}
+.number-section-top-left {
+    position: absolute;
+    top: 12px;
+    left: 0px;
+}
+.number-section-top-right {
+    position: absolute;
+    top: 12px;
+    right: 0px;
+}
+.number-section-center {
+    position: absolute;
+    top: 94px;
+    left: 12px;
+}
+.number-section-bottom-left {
+    position: absolute;
+    bottom: 12px;
+    left: 0px;
+}
+.number-section-bottom-right {
+    position: absolute;
+    bottom: 12px;
+    right: 0px;
+}
+.number-section-bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 12px;
 }
