@@ -1,97 +1,118 @@
 body {
     background-color: #111111;
 }
-.number-container {
+.digit {
     margin: 100px;
     width: 104px;
     height: 198px;
-    background-color: #555555;
+    background-color: #111111;
     position: relative;
 }
-.number-horizontal-section {
+.digit__section-h {
     width: 80px;
     height: 10px;
-    background-color: #FEFEFE;
+    background-color: #333333;
     position: relative;
 }
-.number-horizontal-section::before {
+.digit__section-h::before {
     content: "";
     width: 0;
     height: 0;
     position: absolute;
     left: -5px;
-    border-right: 5px solid #FEFEFE;
+    border-right: 5px solid #333333;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
 }
-.number-horizontal-section::after {
+.digit__section-h::after {
     content: "";
     width: 0;
     height: 0;
     position: absolute;
     right: -5px;
-    border-left: 5px solid #FEFEFE;
+    border-left: 5px solid #333333;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
 }
-.number-vertical-section {
+.digit__section-v {
     width: 10px;
     height: 80px;
-    background-color: #FEFEFE;
+    background-color: #333333;
     position: relative;
 }
-.number-vertical-section::before {
+.digit__section-v::before {
     content: "";
     width: 0;
     height: 0;
     position: absolute;
     top: -5px;
-    border-bottom: 5px solid #FEFEFE;
+    border-bottom: 5px solid #333333;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
 }
-.number-vertical-section::after {
+.digit__section-v::after {
     content: "";
     width: 0;
     height: 0;
     position: absolute;
     bottom: -5px;
-    border-top: 5px solid #FEFEFE;
+    border-top: 5px solid #333333;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
 }
-.number-section-top {
+.digit__section-top {
     position: absolute;
     top: 0px;
     left: 12px;
 }
-.number-section-top-left {
+.digit__section-top-left {
     position: absolute;
     top: 12px;
     left: 0px;
 }
-.number-section-top-right {
+.digit__section-top-right {
     position: absolute;
     top: 12px;
     right: 0px;
 }
-.number-section-center {
+.digit__section-center {
     position: absolute;
     top: 94px;
     left: 12px;
 }
-.number-section-bottom-left {
+.digit__section-bottom-left {
     position: absolute;
     bottom: 12px;
     left: 0px;
 }
-.number-section-bottom-right {
+.digit__section-bottom-right {
     position: absolute;
     bottom: 12px;
     right: 0px;
 }
-.number-section-bottom {
+.digit__section-bottom {
     position: absolute;
     bottom: 0px;
     left: 12px;
 }
+.digit__section-h--active{
+    background-color: #00BFFF;
+    box-shadow: 0px 0px 5px #00BFFF;
+}
+.digit__section-h--active::before {
+    border-right: 5px solid #00BFFF;
+}
+.digit__section-h--active::after {
+    border-left: 5px solid #00BFFF;
+}
+.digit__section-v--active{
+    background-color: #00BFFF;
+    box-shadow: 0px 0px 5px #00BFFF;
+}
+.digit__section-v--active::before {
+    border-bottom: 5px solid #00BFFF;
+}
+.digit__section-v--active::after {
+    border-top: 5px solid #00BFFF;
+}
+
