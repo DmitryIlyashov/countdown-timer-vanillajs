@@ -1,8 +1,13 @@
 body {
     background-color: #111111;
 }
-.digit {
+.container {
+    display: flex;
+    flex-direction: row;
     margin: 100px;
+}
+.digit {
+    margin: 15px;
     width: 104px;
     height: 198px;
     background-color: #111111;

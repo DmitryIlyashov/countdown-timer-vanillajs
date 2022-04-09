@@ -1,28 +1,41 @@
-function getAllDigitSections() {
-    let sections = document.querySelectorAll('.digit__section');
+function getAllSectionsOfDigit(digitId) {
+    const digit = document.getElementById(digitId);
+    const sections = digit.querySelectorAll('.digit__section');
     return sections;
 }
 
-function showAvailableSectionsOfDigit(digit) {
-    let sections = getAllDigitSections();
+function displayNumberOnDigit(number, digitId) {
+    let sections = getAllSectionsOfDigit(digitId);
 
     sections.forEach((section) => {
         section.classList.remove('digit__section--active');
-        if (section.classList.value.includes(digit)) {
+        if (section.classList.value.includes(number)) {
             section.classList.add('digit__section--active');
         }
     });
 }
 
-let i = 0;
-const interval = setInterval(() => {
-    showAvailableSectionsOfDigit(i);
-    i++;
-    if (i > 9) {
-        clearInterval(interval);
+function displaySeconds(seconds) {
+    let secondsStr = seconds + '';
+    if (secondsStr.length === 1) {
+        secondsStr = '0' + secondsStr;
     }
-}, 1000);
+    displayNumberOnDigit(+secondsStr[0], 'seconds-high-digit');
+    displayNumberOnDigit(+secondsStr[1], 'seconds-low-digit');
+}
+
+function start() {
+    let i = 60;
+    displaySeconds(i);
+    const interval = setInterval(() => {
+        displaySeconds(i);
+        i--;
+        if (i < 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
+start();
 
 
-// setInterval(() => sections.forEach((section) => section.classList.add('digit__section--active')), 1000);
-// sections.forEach((section) => section.classList.add('digit__section--active'));
