@@ -69,7 +69,7 @@ function toggleAllDots() {
 }
 
 function start() {
-    let i = 150;
+    let i = 183;
     displayHours(getHoursPart(i));
     displayMinutes(getMinutesPart(i));
     displaySeconds(getSecondsPart(i));
@@ -87,7 +87,7 @@ function start() {
     const dotsFlashing = setInterval(
         () => {
             toggleAllDots();
-            if (i < 0) {
+            if (i - 1 < 0) {
                 clearInterval(dotsFlashing);
             }
         }, 500
@@ -95,4 +95,3 @@ function start() {
 }
 
 start();
-
