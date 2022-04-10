@@ -52,28 +52,45 @@ function getHoursPart(numberOfSeconds) {
     return (numberOfSeconds - (numberOfSeconds % 3600)) / 3600;
 }
 
-const j = 7302;
+function getAllDots() {
+    const dots = document.querySelectorAll('.dot');
+    return dots;
+}
 
-console.log(getHoursPart(j));
-console.log(getMinutesPart(j));
-console.log(getSecondsPart(j));
-
+function toggleAllDots() {
+    const dots = getAllDots();
+    dots.forEach((dot) => {
+        if (dot.classList.value.includes('dot--active')) {
+            dot.classList.remove('dot--active');
+        } else {
+            dot.classList.add('dot--active');
+        } 
+    });
+}
 
 function start() {
-    let i = 12384;
+    let i = 150;
     displayHours(getHoursPart(i));
     displayMinutes(getMinutesPart(i));
     displaySeconds(getSecondsPart(i));
     const interval = setInterval(
         () => {
-            displayHours(getHoursPart(i));
-            displayMinutes(getMinutesPart(i));
-            displaySeconds(getSecondsPart(i));
+            displayHours(getHoursPart(i - 1));
+            displayMinutes(getMinutesPart(i - 1));
+            displaySeconds(getSecondsPart(i - 1));
             i--;
-            if (i < 0) {
+            if (i - 1 < 0) {
                 clearInterval(interval);
             }
         }, 1000
+    );
+    const dotsFlashing = setInterval(
+        () => {
+            toggleAllDots();
+            if (i < 0) {
+                clearInterval(dotsFlashing);
+            }
+        }, 500
     );
 }
 
