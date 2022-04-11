@@ -68,30 +68,84 @@ function toggleAllDots() {
     });
 }
 
-function start() {
-    let i = 183;
-    displayHours(getHoursPart(i));
-    displayMinutes(getMinutesPart(i));
-    displaySeconds(getSecondsPart(i));
-    const interval = setInterval(
+function fillHoursSelectList() {
+    const select = document.getElementById('hours');
+    for (let i = 0; i < 100; i++) {
+        const option = document.createElement("option");
+
+        option.name = i;
+        option.innerHTML = i;
+        select.appendChild(option);
+    }
+}
+
+function fillMinutesSelectList() {
+    const select = document.getElementById('minutes');
+
+    for (let i = 0; i < 25; i++) {
+        const option = document.createElement('option');
+
+        option.name = i;
+        option.innerHTML = i;
+        select.appendChild(option);
+    }
+ }
+
+ function fillSecondsSelectList() {
+    const select = document.getElementById('seconds');
+
+    for (let i = 0; i < 60; i++) {
+        const option = document.createElement('option');
+        
+        option.name = i;
+        option.innerHTML = i;
+        select.appendChild(option);
+    }
+ }
+
+let interval;
+let dotsFlashing;
+
+function startTimer() {
+    const hours = +document.getElementById('hours').value;
+    const minutes = +document.getElementById('minutes').value;
+    const seconds = +document.getElementById('seconds').value;
+    let i = hours * 3600 + minutes * 60 + seconds - 1;
+
+    displayHours(hours);
+    displayMinutes(minutes);
+    displaySeconds(seconds);
+
+    interval = setInterval(
         () => {
-            displayHours(getHoursPart(i - 1));
-            displayMinutes(getMinutesPart(i - 1));
-            displaySeconds(getSecondsPart(i - 1));
+            displayHours(getHoursPart(i));
+            displayMinutes(getMinutesPart(i));
+            displaySeconds(getSecondsPart(i));
+
             i--;
-            if (i - 1 < 0) {
+
+            if (i < 0) {
                 clearInterval(interval);
             }
         }, 1000
     );
-    const dotsFlashing = setInterval(
+
+    dotsFlashing = setInterval(
         () => {
             toggleAllDots();
-            if (i - 1 < 0) {
+
+            if (i < 0) {
                 clearInterval(dotsFlashing);
             }
         }, 500
     );
 }
 
-start();
+function stopTimer() {
+    clearInterval(interval);
+    clearInterval(dotsFlashing);
+}
+
+fillHoursSelectList();
+fillMinutesSelectList();
+fillSecondsSelectList();
