@@ -1,0 +1,16 @@
+.dots {
+    display: flex;
+    flex-direction: column;
+    background-color: #111111;
+    justify-content: space-around;
+    margin: 15px;
+}
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #111111;
+}
+.dot--active {
+    background-color: #00BFFF;
+    box-shadow: 0px 0px 5px #00BFFF;
+}
