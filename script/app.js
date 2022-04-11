@@ -1,14 +1,16 @@
 function getAllSectionsOfDigit(digitId) {
     const digit = document.getElementById(digitId);
     const sections = digit.querySelectorAll('.digit__section');
+
     return sections;
 }
 
 function displayNumberOnDigit(number, digitId) {
     let sections = getAllSectionsOfDigit(digitId);
 
-    sections.forEach((section) => {
+    sections.forEach( (section) => {
         section.classList.remove('digit__section--active');
+
         if (section.classList.value.includes(number)) {
             section.classList.add('digit__section--active');
         }
@@ -17,11 +19,13 @@ function displayNumberOnDigit(number, digitId) {
 
 function getFirstDigitOfNumber(number) {
     let numberStr = ((number + '').length > 1) ? number + '' : '0' + number;
+
     return numberStr[0];
 }
 
 function getSecondDigitOfNumber(number) {
     let numberStr = ((number + '').length > 1) ? number + '' : '0' + number;
+
     return numberStr[1];
 }
 
@@ -54,6 +58,7 @@ function getHoursPart(numberOfSeconds) {
 
 function getAllDots() {
     const dots = document.querySelectorAll('.dot');
+
     return dots;
 }
 
@@ -70,6 +75,7 @@ function toggleAllDots() {
 
 function fillHoursSelectList() {
     const select = document.getElementById('hours');
+
     for (let i = 0; i < 100; i++) {
         const option = document.createElement("option");
 
@@ -91,7 +97,7 @@ function fillMinutesSelectList() {
     }
  }
 
- function fillSecondsSelectList() {
+function fillSecondsSelectList() {
     const select = document.getElementById('seconds');
 
     for (let i = 0; i < 60; i++) {
@@ -101,10 +107,7 @@ function fillMinutesSelectList() {
         option.innerHTML = i;
         select.appendChild(option);
     }
- }
-
-let interval;
-let dotsFlashing;
+}
 
 function startTimer() {
     const hours = +document.getElementById('hours').value;
@@ -139,12 +142,20 @@ function startTimer() {
             }
         }, 500
     );
+
+    document.getElementById('start-btn').disabled = true;
+    document.getElementById('stop-btn').disabled = false;
 }
 
 function stopTimer() {
     clearInterval(interval);
     clearInterval(dotsFlashing);
+    document.getElementById('start-btn').disabled = false;
+    document.getElementById('stop-btn').disabled = true;
 }
+
+let interval;
+let dotsFlashing;
 
 fillHoursSelectList();
 fillMinutesSelectList();
