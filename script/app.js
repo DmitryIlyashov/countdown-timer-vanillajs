@@ -1,3 +1,33 @@
+function buildDigitsHTML() {
+    let digits = document.querySelectorAll('.digit');
+
+    digits.forEach(digit => {
+        digit.innerHTML = `
+            <div class="digit__section-top">
+                <div class="digit__section digit__section-available-02356789"></div>
+            </div>
+            <div class="digit__section-top-left">
+                <div class="digit__section digit__section--vertical digit__section-available-045689"></div>
+            </div>
+            <div class="digit__section-top-right">
+                <div class="digit__section digit__section--vertical digit__section-available-01234789"></div>
+            </div>
+            <div class="digit__section-center">
+                <div class="digit__section digit__section-available-2345689"></div>
+            </div>
+            <div class="digit__section-bottom-left">
+                <div class="digit__section digit__section--vertical digit__section-available-0268"></div>
+            </div>
+            <div class="digit__section-bottom-right">
+                <div class="digit__section digit__section--vertical digit__section-available-013456789"></div>
+            </div>
+            <div class="digit__section-bottom">
+                <div class="digit__section digit__section-available-0235689"></div>
+            </div>
+        `;
+    });
+}
+
 function getAllSectionsOfDigit(digitId) {
     const digit = document.getElementById(digitId);
     const sections = digit.querySelectorAll('.digit__section');
@@ -64,6 +94,7 @@ function getAllDots() {
 
 function toggleAllDots() {
     const dots = getAllDots();
+    
     dots.forEach((dot) => {
         if (dot.classList.value.includes('dot--active')) {
             dot.classList.remove('dot--active');
@@ -81,6 +112,7 @@ function fillHoursSelectList() {
 
         option.name = i;
         option.innerHTML = i;
+
         select.appendChild(option);
     }
 }
@@ -93,6 +125,7 @@ function fillMinutesSelectList() {
 
         option.name = i;
         option.innerHTML = i;
+
         select.appendChild(option);
     }
  }
@@ -105,6 +138,7 @@ function fillSecondsSelectList() {
         
         option.name = i;
         option.innerHTML = i;
+        
         select.appendChild(option);
     }
 }
@@ -160,3 +194,4 @@ let dotsFlashing;
 fillHoursSelectList();
 fillMinutesSelectList();
 fillSecondsSelectList();
+buildDigitsHTML();
