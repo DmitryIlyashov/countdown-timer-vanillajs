@@ -11,31 +11,34 @@
 </head>
 <body>
     <div class="container">
-        <form>
-            <select name="hours" id="hours"></select>
-            <select name="minutes" id="minutes"></select>
-            <select name="seconds" id="seconds"></select>
-        </form>
-        <button id="start-btn" onclick="startTimer()">Старт</button>
-        <button id="stop-btn" onclick="stopTimer()">Стоп</button>
+        <div class="control-panel">
+            <form>
+                <select name="hours" id="hours"></select>
+                <select name="minutes" id="minutes"></select>
+                <select name="seconds" id="seconds"></select>
+            </form>
+            <button id="start-btn">Старт</button>
+            <button id="stop-btn">Стоп</button>    
+        </div>
     </div>
     <div class="container">
-        <div class="digit" id="hours-high-digit"></div>
-        <div class="digit" id="hours-low-digit"></div>
-        <div class="dots">
-            <div class="dot dot--active"></div>
-            <div class="dot dot--active"></div>
+        <div class="timer">
+            <div class="digit" id="hours-high-digit"></div>
+            <div class="digit" id="hours-low-digit"></div>
+            <div class="dots">
+                <div class="dot dot--active"></div>
+                <div class="dot dot--active"></div>
+            </div>
+            <div class="digit" id="minutes-high-digit"></div>
+            <div class="digit" id="minutes-low-digit"></div>
+            <div class="dots">
+                <div class="dot dot--active"></div>
+                <div class="dot dot--active"></div>
+            </div>
+            <div class="digit" id="seconds-high-digit"></div>
+            <div class="digit" id="seconds-low-digit"></div>            
         </div>
-        <div class="digit" id="minutes-high-digit"></div>
-        <div class="digit" id="minutes-low-digit"></div>
-        <div class="dots">
-            <div class="dot dot--active"></div>
-            <div class="dot dot--active"></div>
-        </div>
-        <div class="digit" id="seconds-high-digit"></div>
-        <div class="digit" id="seconds-low-digit"></div>        
     </div>
-    <script src="script/page-builder.js"></script>
-    <script src="script/app.js"></script>
+    <script type="module" src="script/app.js"></script>
 </body>
 </html>

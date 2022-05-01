@@ -6,3 +6,11 @@ body {
     flex-direction: row;
     margin: 100px;
 }
+.control-panel {
+    display: flex;
+    flex-direction: row;
+}
+.timer {
+    display: flex;
+    flex-direction: row;
+}
