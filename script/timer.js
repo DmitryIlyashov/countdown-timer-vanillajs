@@ -14,25 +14,25 @@ const Timer = (function() {
             digits.forEach(digit => {
                 digit.innerHTML = `
                     <div class="digit__section-top">
-                        <div class="digit__section digit__section-available-02356789"></div>
+                        <div class="digit__section">02356789</div>
                     </div>
                     <div class="digit__section-top-left">
-                        <div class="digit__section digit__section--vertical digit__section-available-045689"></div>
+                        <div class="digit__section digit__section--vertical">045689</div>
                     </div>
                     <div class="digit__section-top-right">
-                        <div class="digit__section digit__section--vertical digit__section-available-01234789"></div>
+                        <div class="digit__section digit__section--vertical">01234789</div>
                     </div>
                     <div class="digit__section-center">
-                        <div class="digit__section digit__section-available-2345689"></div>
+                        <div class="digit__section">2345689</div>
                     </div>
                     <div class="digit__section-bottom-left">
-                        <div class="digit__section digit__section--vertical digit__section-available-0268"></div>
+                        <div class="digit__section digit__section--vertical">0268</div>
                     </div>
                     <div class="digit__section-bottom-right">
-                        <div class="digit__section digit__section--vertical digit__section-available-013456789"></div>
+                        <div class="digit__section digit__section--vertical">013456789</div>
                     </div>
                     <div class="digit__section-bottom">
-                        <div class="digit__section digit__section-available-0235689"></div>
+                        <div class="digit__section">0235689</div>
                     </div>
                 `;
             });        
@@ -132,7 +132,7 @@ const Timer = (function() {
             sections.forEach( (section) => {
                 section.classList.remove('digit__section--active');
         
-                if (section.classList.value.includes(number)) {
+                if (section.innerText.includes(number)) {
                     section.classList.add('digit__section--active');
                 }
             });

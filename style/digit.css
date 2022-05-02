@@ -4,6 +4,7 @@
     height: 198px;
     background-color: #111111;
     position: relative;
+    font-size: 0;
 }
 .digit__section {
     width: 80px;
