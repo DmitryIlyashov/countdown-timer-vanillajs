@@ -1,8 +1,8 @@
 const ControlPanel = (function() {
-	const el = document.querySelector('.control-panel');
+    const el = document.querySelector('.control-panel');
 
-	return {
-		init: function() {
+    return {
+        init: function() {
             this.render();
             this.event();
 		},
@@ -23,19 +23,36 @@ const ControlPanel = (function() {
                 select.appendChild(option);
             }
         },
+        getFormTime: function() {
+            const hours = +document.getElementById('hours').value;
+            const minutes = +document.getElementById('minutes').value;
+            const seconds = +document.getElementById('seconds').value;
+            const time = {
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds
+            };
+
+            return time;
+        },
         event: function() {
             const startBtn = el.querySelector('#start-btn');
             const stopBtn = el.querySelector('#stop-btn');
 
-            //Передать в модуль timer объект со значениями формы
             startBtn.addEventListener('click', () => {
-                const startEvent = new Event('start');
+                const startEvent = new CustomEvent('start', {
+                    detail: this.getFormTime()
+                });
                 document.dispatchEvent(startEvent);
+                // el.querySelector('start-btn').disabled = true;
+                // el.querySelector('stop-btn').disabled = false;    
             });
 
             stopBtn.addEventListener('click', () => {
-                const stopEvent = new Event('stop');
+                const stopEvent = new CustomEvent('stop');
                 document.dispatchEvent(stopEvent);
+                // el.querySelector('start-btn').disabled = false;
+                // el.querySelector('stop-btn').disabled = true;    
             });
         },
 	};
