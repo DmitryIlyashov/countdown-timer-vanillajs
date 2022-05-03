@@ -4,11 +4,11 @@ const Timer = (function() {
     let dotsFlashing;
 
 	return {
-		init: function() {
+		init() {
             this.render();
             this.event();
 		},
-        render: function() {
+        render() {
             const digits = el.querySelectorAll('.digit');
 
             digits.forEach(digit => {
@@ -37,11 +37,11 @@ const Timer = (function() {
                 `;
             });        
         },
-        event: function() {
+        event() {
             document.addEventListener('start', this.start.bind(this));
             document.addEventListener('stop', this.stop.bind(this));
         },
-        start: function(e) {
+        start(e) {
             const hours = e.detail.hours;
             const minutes = e.detail.minutes;
             const seconds = e.detail.seconds;
@@ -75,28 +75,23 @@ const Timer = (function() {
                 }, 500
             );
         },
-        stop: function() {
+        stop() {
             clearInterval(interval);
             clearInterval(dotsFlashing);
         },
-        getSecondsPart: function(numberOfSeconds) {
+        getSecondsPart(numberOfSeconds) {
             return numberOfSeconds % 60;
         },
-        getMinutesPart: function(numberOfSeconds) {
+        getMinutesPart(numberOfSeconds) {
             return ((numberOfSeconds % 3600) - (numberOfSeconds % 60)) / 60;
         },
-        getHoursPart: function(numberOfSeconds) {
+        getHoursPart(numberOfSeconds) {
             return (numberOfSeconds - (numberOfSeconds % 3600)) / 3600;
         },
-        getAllDots: function() {
-            const dots = document.querySelectorAll('.dot');
-        
-            return dots;
-        },
-        toggleAllDots: function() {
-            const dots = this.getAllDots();
+        toggleAllDots() {
+            const dots = el.querySelectorAll('.dot');
             
-            dots.forEach((dot) => {
+            dots.forEach(dot => {
                 if (dot.classList.value.includes('dot--active')) {
                     dot.classList.remove('dot--active');
                 } else {
@@ -104,32 +99,32 @@ const Timer = (function() {
                 } 
             });
         },
-        displaySeconds: function(seconds) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(seconds), 'seconds-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(seconds), 'seconds-low-digit');
+        displaySeconds(seconds) {
+            this.displayNumberOnDigit(this.getFirstDigitOfNumber(seconds), '.seconds-high-digit');
+            this.displayNumberOnDigit(this.getSecondDigitOfNumber(seconds), '.seconds-low-digit');
         },
-        displayMinutes: function(minutes) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(minutes), 'minutes-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(minutes), 'minutes-low-digit');
+        displayMinutes(minutes) {
+            this.displayNumberOnDigit(this.getFirstDigitOfNumber(minutes), '.minutes-high-digit');
+            this.displayNumberOnDigit(this.getSecondDigitOfNumber(minutes), '.minutes-low-digit');
         },
-        displayHours: function(hours) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(hours), 'hours-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(hours), 'hours-low-digit');
+        displayHours(hours) {
+            this.displayNumberOnDigit(this.getFirstDigitOfNumber(hours), '.hours-high-digit');
+            this.displayNumberOnDigit(this.getSecondDigitOfNumber(hours), '.hours-low-digit');
         },
-        getFirstDigitOfNumber: function(number) {
+        getFirstDigitOfNumber(number) {
             let numberStr = ((number + '').length > 1) ? number + '' : '0' + number;
         
             return numberStr[0];
         },
-        getSecondDigitOfNumber: function(number) {
+        getSecondDigitOfNumber(number) {
             let numberStr = ((number + '').length > 1) ? number + '' : '0' + number;
         
             return numberStr[1];
         },
-        displayNumberOnDigit: function(number, digitId) {
+        displayNumberOnDigit(number, digitId) {
             let sections = this.getAllSectionsOfDigit(digitId);
         
-            sections.forEach( (section) => {
+            sections.forEach(section => {
                 section.classList.remove('digit__section--active');
         
                 if (section.innerText.includes(number)) {
@@ -137,8 +132,8 @@ const Timer = (function() {
                 }
             });
         },
-        getAllSectionsOfDigit: function(digitId) {
-            const digit = document.getElementById(digitId);
+        getAllSectionsOfDigit(digitId) {
+            const digit = el.querySelector(digitId);
             const sections = digit.querySelectorAll('.digit__section');
         
             return sections;
