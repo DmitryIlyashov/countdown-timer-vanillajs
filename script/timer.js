@@ -1,7 +1,8 @@
 const Timer = (function() {
     const el = document.querySelector('.timer');
-    let interval;
-    let dotsFlashing;
+    let timeInterval;
+    let dotsInterval;
+
 
 	return {
 		init() {
@@ -45,16 +46,6 @@ const Timer = (function() {
             const time = e.detail;
 
             this.setClock(time);
-        
-            // dotsFlashing = setInterval(
-            //     () => {
-            //         this.toggleAllDots();
-        
-            //         if (i < 0) {
-            //             clearInterval(dotsFlashing);
-            //         }
-            //     }, 500
-            // );
         },
         setClock(time) {
             const hoursHighDigit = el.querySelector('.hours-high-digit'),
@@ -62,8 +53,10 @@ const Timer = (function() {
                   minutesHighDigit = el.querySelector('.minutes-high-digit'),
                   minutesLowDigit = el.querySelector('.minutes-low-digit'),
                   secondsHighDigit = el.querySelector('.seconds-high-digit'),
-                  secondsLowDigit = el.querySelector('.seconds-low-digit'),
-                  timeInterval = setInterval(updateClock.bind(this), 1000);
+                  secondsLowDigit = el.querySelector('.seconds-low-digit');
+
+            this.timeInterval = setInterval(updateClock.bind(this), 1000);
+            this.dotsInterval = setInterval(this.toggleDots.bind(this), 500);
             
             updateClock.bind(this);
 
@@ -76,7 +69,8 @@ const Timer = (function() {
                 this.displayNumberOnDigit(this.getSecondDigitOfNumber(time.hours), hoursLowDigit);
 
                 if (time.total <= 0) {
-                    clearInterval(timeInterval);
+                    clearInterval(this.timeInterval);
+                    clearInterval(this.dotsInterval);
                 } else {
                     this.updateTime(time);
                 }
@@ -89,10 +83,10 @@ const Timer = (function() {
             time.seconds = time.total % 60;
         },
         stop() {
-            clearInterval(interval);
-            clearInterval(dotsFlashing);
+            clearInterval(this.timeInterval);
+            clearInterval(this.dotsInterval);
         },
-        toggleAllDots() {
+        toggleDots() {
             const dots = el.querySelectorAll('.dot');
             
             dots.forEach(dot => {
@@ -114,7 +108,7 @@ const Timer = (function() {
             return numberStr[1];
         },
         displayNumberOnDigit(number, digit) {
-            let sections = this.getAllSectionsOfDigit(digit);
+            let sections = digit.querySelectorAll('.digit__section');
         
             sections.forEach(section => {
                 section.classList.remove('digit__section--active');
@@ -123,11 +117,6 @@ const Timer = (function() {
                     section.classList.add('digit__section--active');
                 }
             });
-        },
-        getAllSectionsOfDigit(digit) {
-            const sections = digit.querySelectorAll('.digit__section');
-        
-            return sections;
         },
 	};
 })();
