@@ -42,51 +42,55 @@ const Timer = (function() {
             document.addEventListener('stop', this.stop.bind(this));
         },
         start(e) {
-            const hours = e.detail.hours;
-            const minutes = e.detail.minutes;
-            const seconds = e.detail.seconds;
-            let i = hours * 3600 + minutes * 60 + seconds - 1;
+            const time = e.detail;
 
-            this.displayHours(hours);
-            this.displayMinutes(minutes);
-            this.displaySeconds(seconds);
+            this.setClock(time);
         
-            interval = setInterval(
-                () => {
-                    this.displayHours(this.getHoursPart(i));
-                    this.displayMinutes(this.getMinutesPart(i));
-                    this.displaySeconds(this.getSecondsPart(i));
+            // dotsFlashing = setInterval(
+            //     () => {
+            //         this.toggleAllDots();
         
-                    i--;
-        
-                    if (i < 0) {
-                        clearInterval(interval);
-                    }
-                }, 1000
-            );
-        
-            dotsFlashing = setInterval(
-                () => {
-                    this.toggleAllDots();
-        
-                    if (i < 0) {
-                        clearInterval(dotsFlashing);
-                    }
-                }, 500
-            );
+            //         if (i < 0) {
+            //             clearInterval(dotsFlashing);
+            //         }
+            //     }, 500
+            // );
+        },
+        setClock(time) {
+            const hoursHighDigit = el.querySelector('.hours-high-digit'),
+                  hoursLowDigit = el.querySelector('.hours-low-digit'),
+                  minutesHighDigit = el.querySelector('.minutes-high-digit'),
+                  minutesLowDigit = el.querySelector('.minutes-low-digit'),
+                  secondsHighDigit = el.querySelector('.seconds-high-digit'),
+                  secondsLowDigit = el.querySelector('.seconds-low-digit'),
+                  timeInterval = setInterval(updateClock.bind(this), 1000);
+            
+            updateClock.bind(this);
+
+            function updateClock() {
+                this.displayNumberOnDigit(this.getFirstDigitOfNumber(time.seconds), secondsHighDigit);
+                this.displayNumberOnDigit(this.getSecondDigitOfNumber(time.seconds), secondsLowDigit);
+                this.displayNumberOnDigit(this.getFirstDigitOfNumber(time.minutes), minutesHighDigit);
+                this.displayNumberOnDigit(this.getSecondDigitOfNumber(time.minutes), minutesLowDigit);
+                this.displayNumberOnDigit(this.getFirstDigitOfNumber(time.hours), hoursHighDigit);
+                this.displayNumberOnDigit(this.getSecondDigitOfNumber(time.hours), hoursLowDigit);
+
+                if (time.total <= 0) {
+                    clearInterval(timeInterval);
+                } else {
+                    this.updateTime(time);
+                }
+            }
+        },
+        updateTime(time) {
+            time.total--;
+            time.hours = Math.floor(time.total / (60 * 60));
+            time.minutes = Math.floor((time.total / 60) % 60);
+            time.seconds = time.total % 60;
         },
         stop() {
             clearInterval(interval);
             clearInterval(dotsFlashing);
-        },
-        getSecondsPart(numberOfSeconds) {
-            return numberOfSeconds % 60;
-        },
-        getMinutesPart(numberOfSeconds) {
-            return ((numberOfSeconds % 3600) - (numberOfSeconds % 60)) / 60;
-        },
-        getHoursPart(numberOfSeconds) {
-            return (numberOfSeconds - (numberOfSeconds % 3600)) / 3600;
         },
         toggleAllDots() {
             const dots = el.querySelectorAll('.dot');
@@ -99,18 +103,6 @@ const Timer = (function() {
                 } 
             });
         },
-        displaySeconds(seconds) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(seconds), '.seconds-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(seconds), '.seconds-low-digit');
-        },
-        displayMinutes(minutes) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(minutes), '.minutes-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(minutes), '.minutes-low-digit');
-        },
-        displayHours(hours) {
-            this.displayNumberOnDigit(this.getFirstDigitOfNumber(hours), '.hours-high-digit');
-            this.displayNumberOnDigit(this.getSecondDigitOfNumber(hours), '.hours-low-digit');
-        },
         getFirstDigitOfNumber(number) {
             let numberStr = ((number + '').length > 1) ? number + '' : '0' + number;
         
@@ -121,8 +113,8 @@ const Timer = (function() {
         
             return numberStr[1];
         },
-        displayNumberOnDigit(number, digitId) {
-            let sections = this.getAllSectionsOfDigit(digitId);
+        displayNumberOnDigit(number, digit) {
+            let sections = this.getAllSectionsOfDigit(digit);
         
             sections.forEach(section => {
                 section.classList.remove('digit__section--active');
@@ -132,8 +124,7 @@ const Timer = (function() {
                 }
             });
         },
-        getAllSectionsOfDigit(digitId) {
-            const digit = el.querySelector(digitId);
+        getAllSectionsOfDigit(digit) {
             const sections = digit.querySelectorAll('.digit__section');
         
             return sections;

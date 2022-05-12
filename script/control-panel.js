@@ -24,14 +24,16 @@ const ControlPanel = (function() {
             }
         },
         getFormTime() {
-            const hours = +el.querySelector('.hours').value;
-            const minutes = +el.querySelector('.minutes').value;
-            const seconds = +el.querySelector('.seconds').value;
-            const time = {
-                hours,
-                minutes,
-                seconds
-            };
+            const hours = +el.querySelector('.hours').value,
+                  minutes = +el.querySelector('.minutes').value,
+                  seconds = +el.querySelector('.seconds').value,
+                  t = hours * 3600 + minutes * 60 + seconds,
+                  time = {
+                        total: t,
+                        hours,
+                        minutes,
+                        seconds
+                  };
 
             return time;
         },
