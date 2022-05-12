@@ -46,15 +46,15 @@ const ControlPanel = (function() {
                     detail: this.getFormTime()
                 });
                 document.dispatchEvent(startEvent);
-                // el.querySelector('start-btn').disabled = true;
-                // el.querySelector('stop-btn').disabled = false;    
+                el.querySelector('.start-btn').disabled = true;
+                el.querySelector('.stop-btn').disabled = false;    
             });
 
             stopBtn.addEventListener('click', () => {
                 const stopEvent = new CustomEvent('stop');
                 document.dispatchEvent(stopEvent);
-                // el.querySelector('start-btn').disabled = false;
-                // el.querySelector('stop-btn').disabled = true;    
+                el.querySelector('.start-btn').disabled = false;
+                el.querySelector('.stop-btn').disabled = true;    
             });
         },
 	};
