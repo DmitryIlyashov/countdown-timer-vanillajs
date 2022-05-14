@@ -3,7 +3,6 @@ const Timer = (function() {
     let timeInterval;
     let dotsInterval;
 
-
 	return {
 		init() {
             this.render();
@@ -69,8 +68,7 @@ const Timer = (function() {
                 this.displayNumberOnDigit(this.getSecondDigitOfNumber(time.hours), hoursLowDigit);
 
                 if (time.total <= 0) {
-                    clearInterval(this.timeInterval);
-                    clearInterval(this.dotsInterval);
+                    this.stop();
                 } else {
                     this.updateTime(time);
                 }

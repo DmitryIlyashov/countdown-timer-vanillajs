@@ -23,6 +23,38 @@ const ControlPanel = (function() {
                 select.appendChild(option);
             }
         },
+        event() {
+            const startBtn = el.querySelector('.start-btn');
+            const stopBtn = el.querySelector('.stop-btn');
+
+            startBtn.addEventListener('click', () => {
+                const startEvent = new CustomEvent('start', {
+                    detail: this.getFormTime()
+                });
+
+                document.dispatchEvent(startEvent);
+
+                el.querySelector('form').classList.remove('show');
+                el.querySelector('form').classList.add('hide');
+                el.querySelector('.start-btn').classList.remove('show');
+                el.querySelector('.start-btn').classList.add('hide');    
+                el.querySelector('.stop-btn').classList.remove('hide');
+                el.querySelector('.stop-btn').classList.add('show');    
+            });
+
+            stopBtn.addEventListener('click', () => {
+                const stopEvent = new CustomEvent('stop');
+
+                document.dispatchEvent(stopEvent);
+
+                el.querySelector('form').classList.remove('hide');
+                el.querySelector('form').classList.add('add');
+                el.querySelector('.start-btn').classList.remove('hide');
+                el.querySelector('.start-btn').classList.add('show');    
+                el.querySelector('.stop-btn').classList.remove('show');
+                el.querySelector('.stop-btn').classList.add('hide');     
+            });
+        },
         getFormTime() {
             const hours = +el.querySelector('.hours').value,
                   minutes = +el.querySelector('.minutes').value,
@@ -36,26 +68,6 @@ const ControlPanel = (function() {
                   };
 
             return time;
-        },
-        event() {
-            const startBtn = el.querySelector('.start-btn');
-            const stopBtn = el.querySelector('.stop-btn');
-
-            startBtn.addEventListener('click', () => {
-                const startEvent = new CustomEvent('start', {
-                    detail: this.getFormTime()
-                });
-                document.dispatchEvent(startEvent);
-                el.querySelector('.start-btn').disabled = true;
-                el.querySelector('.stop-btn').disabled = false;    
-            });
-
-            stopBtn.addEventListener('click', () => {
-                const stopEvent = new CustomEvent('stop');
-                document.dispatchEvent(stopEvent);
-                el.querySelector('.start-btn').disabled = false;
-                el.querySelector('.stop-btn').disabled = true;    
-            });
         },
 	};
 })();
